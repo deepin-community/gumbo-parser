@@ -1,0 +1,52 @@
+Source: gumbo-parser
+Priority: optional
+Maintainer: Onur Aslan <onur@onur.im>
+Build-Depends: debhelper (>= 9),
+ dh-autoreconf,
+ dh-python,
+ libgtest-dev,
+ python3,
+ python3-setuptools
+X-Python3-Version: >= 3.4
+Standards-Version: 3.9.6
+Section: libs
+Homepage: https://github.com/google/gumbo-parser
+Vcs-Git: git://anonscm.debian.org/collab-maint/gumbo-parser.git
+Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/gumbo-parser.git
+
+Package: libgumbo-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: libgumbo1 (= ${binary:Version}), ${misc:Depends}
+Description: pure-C HTML5 parser development files
+ Gumbo is an implementation of the HTML5 parsing algorithm implemented
+ as a pure C99 library with no outside dependencies.  It's designed to serve
+ as a building block for other tools and libraries such as linters,
+ validators, templating languages, and refactoring and analysis tools.
+ .
+ This package contains development files for Gumbo.
+
+Package: libgumbo1
+Architecture: any
+Multi-Arch: same
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: pure-C HTML5 parser
+ Gumbo is an implementation of the HTML5 parsing algorithm implemented
+ as a pure C99 library with no outside dependencies.  It's designed to serve
+ as a building block for other tools and libraries such as linters,
+ validators, templating languages, and refactoring and analysis tools.
+
+Package: python3-gumbo
+Section: python
+Architecture: all
+Depends: ${misc:Depends}, ${shlibs:Depends}, ${python3:Depends},
+ libgumbo1 (>= ${source:Version})
+Recommends: python3-bs4, python3-html5lib
+Description: pure-C HTML5 parser Python 3 bindings
+ Gumbo is an implementation of the [HTML5 parsing algorithm implemented
+ as a pure C99 library with no outside dependencies.  It's designed to serve
+ as a building block for other tools and libraries such as linters,
+ validators, templating languages, and refactoring and analysis tools.
+ .
+ This package contains Python 3 bindings of Gumbo.

@@ -1,0 +1,69 @@
+Description: Use libgtest-dev to build tests.
+Author: Onur Aslan <onur@onur.im>
+Forwarded: not-needed
+Last-Update: 2014-10-13
+
+--- gumbo-parser-0.10.1+dfsg.orig/Makefile.am
++++ gumbo-parser-0.10.1+dfsg/Makefile.am
+@@ -7,35 +7,17 @@
+ 
+ ACLOCAL_AMFLAGS = -I m4
+ 
+-if !HAVE_SHARED_LIBGTEST
++# Using Debian's libgtest-dev for tests
++GTEST_DIR = /usr/src/gtest
+ 
+-# Build gtest before we build protobuf tests.  We don't add gtest to SUBDIRS
+-# because then "make check" would also build and run all of gtest's own tests,
+-# which takes a lot of time and is generally not useful to us.  Also, we don't
+-# want "make install" to recurse into gtest since we don't want to overwrite
+-# the installed version of gtest if there is one.
+-check-local: gtest/lib/libgtest.la gtest/lib/libgtest_main.la
+-
+-gtest/lib/libgtest.la gtest/lib/libgtest_main.la: gtest/Makefile
+-	@echo "Making lib/libgtest.a lib/libgtest_main.a in gtest"
+-	@cd gtest && $(MAKE) $(AM_MAKEFLAGS) lib/libgtest.la lib/libgtest_main.la
+-
+-gtest/Makefile: gtest/configure
+-	@cd gtest && ./configure
+-
+-# We would like to clean gtest when "make clean" is invoked.  But we have to
+-# be careful because clean-local is also invoked during "make distclean", but
+-# "make distclean" already recurses into gtest because it's listed among the
+-# DIST_SUBDIRS.  distclean will delete gtest/Makefile, so if we then try to
+-# cd to the directory again and "make clean" it will fail.  So, check that the
+-# Makefile exists before recursing.
+-clean-local:
+-	@if test -e gtest/Makefile; then \
+-		echo "Making clean in gtest"; \
+-		cd gtest && $(MAKE) $(AM_MAKEFLAGS) clean; \
+-	fi
++tests/gtest-all.o:
++	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
++            $(GTEST_DIR)/src/gtest-all.cc -o tests/gtest-all.o
++
++tests/gtest_main.o:
++	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
++            $(GTEST_DIR)/src/gtest_main.cc -o tests/gtest_main.o
+ 
+-endif !HAVE_SHARED_LIBGTEST
+ 
+ gentags: src/tag.in
+ 	@python gentags.py $<
+@@ -97,13 +79,9 @@
+ gumbo_test_DEPENDENCIES = libgumbo.la
+ gumbo_test_LDADD = libgumbo.la
+ 
+-if HAVE_SHARED_LIBGTEST
+-# FIXME(bnoordhuis) Should be configurable by the user.
+-gumbo_test_LDADD += -lgtest -lgtest_main
+-else
+-gumbo_test_DEPENDENCIES += check-local
+-gumbo_test_LDADD += gtest/lib/libgtest.la gtest/lib/libgtest_main.la
+-endif
++gumbo_test_DEPENDENCIES += tests/gtest-all.o tests/gtest_main.o
++gumbo_test_LDADD += tests/gtest-all.o tests/gtest_main.o
++gumbo_test_LDFLAGS = -pthread
+ 
+ noinst_PROGRAMS = clean_text find_links get_title positions_of_class benchmark serialize prettyprint
+ LDADD = libgumbo.la

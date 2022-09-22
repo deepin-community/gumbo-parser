@@ -1,0 +1,17 @@
+Description: Importing gumbo in python3 is not possible due to circular
+ dependent imports. This patch is fixing this issue.
+Bug: https://github.com/google/gumbo-parser/pull/343
+Bug-Debian: https://bugs.debian.org/789299
+Last-Update: 2015-06-21
+
+--- a/python/gumbo/gumboc.py
++++ b/python/gumbo/gumboc.py
+@@ -26,7 +26,7 @@
+ import contextlib
+ import ctypes
+ import os.path
+-import gumboc_tags
++from . import gumboc_tags
+ 
+ _name_of_lib = 'libgumbo.so'
+ if sys.platform.startswith('darwin'):

@@ -1,0 +1,21 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --with autoreconf,python3 --buildsystem=autoconf
+
+override_dh_auto_clean:
+	dh_auto_clean
+	$(RM) -rfv build/
+	$(RM) -rfv docs/
+	$(RM) -rfv python/gumbo.egg-info/
+	$(RM) -rfv Makefile.in aclocal.m4 compile config.guess config.sub \
+	           configure depcomp install-sh ltmain.sh m4/ missing test-driver
+
+override_dh_auto_install:
+	dh_auto_install
+	python3 setup.py install --root=$(CURDIR)/debian/python3-gumbo --install-layout=deb
+	# Remove tests
+	find $(CURDIR)/debian/python3-gumbo -name '*_test.py' | xargs $(RM) -rfv
+
+override_dh_installchangelogs:
+	dh_installchangelogs CHANGES.md
