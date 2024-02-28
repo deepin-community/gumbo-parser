@@ -169,13 +169,15 @@ CLASSIFIERS = [
 ]
 
 setup(name='gumbo',
-      version='0.10.1',
+      version='0.12.0',
       description='Python bindings for Gumbo HTML parser',
       long_description=README,
       url='http://github.com/google/gumbo-parser',
       keywords='gumbo html html5 parser google html5lib beautifulsoup',
       author='Jonathan Tang',
       author_email='jonathan.d.tang@gmail.com',
+      maintainer='Grigory Kirillov',
+      maintainer_email='txgk@bk.ru',
       license='Apache 2.0',
       classifiers=CLASSIFIERS,
       packages=['gumbo'],

@@ -1,8 +1,45 @@
-gumbo-parser (0.10.1+dfsg-2.4) UNRELEASED; urgency=medium
+gumbo-parser (0.12.0+dfsg-2) unstable; urgency=medium
 
-  * update
+  * Move from experimental to unstable.
 
- -- Onur Aslan <onur@onur.im>  Wed, 01 Jun 2022 21:59:20 -0400
+ -- Aymeric Agon-Rambosson <aymeric.agon@yandex.com>  Tue, 19 Sep 2023 16:33:00 +0200
+
+gumbo-parser (0.12.0+dfsg-1) experimental; urgency=medium
+
+  * Adopt package from Bastian Germann (Closes: #1051219).
+  * Update package to new upstream version 0.12.0+dfsg, from new upstream
+    https://codeberg.org/grisha/gumbo-parser (Closes: #950878), adapt
+    symbols and library version accordingly.
+  * Bump Standards-Version to 4.6.2 (no changes required).
+  * Remove useless dh-autoreconf build dependency.
+  * Enable all hardening options.
+  * Specify Rules-Requires-Root to satisfy policy.
+
+ -- Aymeric Agon-Rambosson <aymeric.agon@yandex.com>  Sat, 16 Sep 2023 18:00:53 +0200
+
+gumbo-parser (0.10.1+dfsg-5) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Use secure copyright file specification URI.
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository,
+    Repository-Browse.
+
+ -- Bastian Germann <bage@debian.org>  Tue, 24 Jan 2023 19:03:04 +0100
+
+gumbo-parser (0.10.1+dfsg-4) unstable; urgency=medium
+
+  * Enable cross compilation
+
+ -- Bastian Germann <bage@debian.org>  Thu, 23 Jun 2022 19:42:32 +0200
+
+gumbo-parser (0.10.1+dfsg-3) unstable; urgency=medium
+
+  * Move Vcs-* fields to salsa
+  * Salvage package (Closes: #1007179)
+  * Remove stray "[" in package descriptions (Closes: #800680)
+  * Move to debhelper 13
+
+ -- Bastian Germann <bage@debian.org>  Sat, 02 Apr 2022 15:33:56 +0200
 
 gumbo-parser (0.10.1+dfsg-2.4) unstable; urgency=medium
 
