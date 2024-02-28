@@ -45,7 +45,7 @@ typedef char gumbo_tagset[GUMBO_TAG_LAST];
 #define TAG_MATHML(tag) [GUMBO_TAG_##tag] = (1 << GUMBO_NAMESPACE_MATHML)
 
 #define TAGSET_INCLUDES(tagset, namespace, tag) \
-  (tag < GUMBO_TAG_LAST && tagset[(int) tag] == (1 << (int) namespace))
+  (tag < GUMBO_TAG_LAST && tagset[(int) tag] & (1 << (int) namespace))
 
 // selected forward declarations as it is getting hard to find
 // an appropriate order
@@ -572,6 +572,10 @@ static GumboInsertionMode get_appropriate_insertion_mode(
   }
 
   assert(node->type == GUMBO_NODE_ELEMENT || node->type == GUMBO_NODE_TEMPLATE);
+  if (node->v.element.tag_namespace != GUMBO_NAMESPACE_HTML)
+    return is_last ?
+      GUMBO_INSERTION_MODE_IN_BODY : GUMBO_INSERTION_MODE_INITIAL;
+  
   switch (node->v.element.tag) {
     case GUMBO_TAG_SELECT: {
       if (is_last) {
@@ -2512,8 +2516,8 @@ static bool handle_in_body(GumboParser* parser, GumboToken* token) {
     return success;
   } else if (tag_in(token, kStartTag,
                  (gumbo_tagset){TAG(ADDRESS), TAG(ARTICLE), TAG(ASIDE),
-                     TAG(BLOCKQUOTE), TAG(CENTER), TAG(DETAILS), TAG(DIR),
-                     TAG(DIV), TAG(DL), TAG(FIELDSET), TAG(FIGCAPTION),
+                     TAG(BLOCKQUOTE), TAG(CENTER), TAG(DETAILS), TAG(DIALOG),
+                     TAG(DIR), TAG(DIV), TAG(DL), TAG(FIELDSET), TAG(FIGCAPTION),
                      TAG(FIGURE), TAG(FOOTER), TAG(HEADER), TAG(HGROUP),
                      TAG(MENU), TAG(MAIN), TAG(NAV), TAG(OL), TAG(P),
                      TAG(SECTION), TAG(SUMMARY), TAG(UL)})) {
@@ -2582,7 +2586,7 @@ static bool handle_in_body(GumboParser* parser, GumboToken* token) {
   } else if (tag_in(token, kEndTag,
                  (gumbo_tagset){TAG(ADDRESS), TAG(ARTICLE), TAG(ASIDE),
                      TAG(BLOCKQUOTE), TAG(BUTTON), TAG(CENTER), TAG(DETAILS),
-                     TAG(DIR), TAG(DIV), TAG(DL), TAG(FIELDSET),
+                     TAG(DIALOG), TAG(DIR), TAG(DIV), TAG(DL), TAG(FIELDSET),
                      TAG(FIGCAPTION), TAG(FIGURE), TAG(FOOTER), TAG(HEADER),
                      TAG(HGROUP), TAG(LISTING), TAG(MAIN), TAG(MENU), TAG(NAV),
                      TAG(OL), TAG(PRE), TAG(SECTION), TAG(SUMMARY), TAG(UL)})) {

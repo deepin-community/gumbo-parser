@@ -74,6 +74,7 @@ TagNames = [
   "DEL",
   "IMAGE",
   "IMG",
+  "PICTURE",
   "IFRAME",
   "EMBED",
   "OBJECT",
@@ -150,6 +151,7 @@ TagNames = [
   "MULTICOL",
   "NOBR",
   "SPACER",
+  "DIALOG",
   "TT",
   "RTC",
 ]

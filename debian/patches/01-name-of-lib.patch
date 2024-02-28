@@ -14,7 +14,7 @@ Description: gumbo python module is trying to load libgumbo.so
 -except OSError:
    # System library, on unix or mac osx
 -  _dll = ctypes.cdll.LoadLibrary(_name_of_lib)
-+  _dll = ctypes.cdll.LoadLibrary(_name_of_lib + '.1')
++  _dll = ctypes.cdll.LoadLibrary(_name_of_lib + '.2')
  
  # Some aliases for common types.
  _bitvector = ctypes.c_uint

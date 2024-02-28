@@ -1,12 +1,12 @@
 Gumbo - A pure-C HTML5 parser.
 ============
 
-[![Build Status](https://travis-ci.org/google/gumbo-parser.svg?branch=master)](https://travis-ci.org/google/gumbo-parser) [![Build status](https://ci.appveyor.com/api/projects/status/k5xxn4bxf62ao2cp?svg=true)](https://ci.appveyor.com/project/nostrademons/gumbo-parser)
-
 Gumbo is an implementation of the [HTML5 parsing algorithm][] implemented
-as a pure C99 library with no outside dependencies.  It's designed to serve
+as a pure C99 library with no outside dependencies. It's designed to serve
 as a building block for other tools and libraries such as linters,
 validators, templating languages, and refactoring and analysis tools.
+This repository is a fork of [original GitHub repository][] which has been
+archived by the owner on Feb 16, 2023 and is no longer maintained.
 
 Goals & features:
 
@@ -34,14 +34,6 @@ Non-goals:
   we recommend translating the Gumbo parse tree into a mutable DOM
   representation more suited for the particular needs of your program before
   operating on it.
-* C89 support.  Most major compilers support C99 by now; the major exception
-  (Microsoft Visual Studio) should be able to compile this in C++ mode with
-  relatively few changes.  (Bug reports welcome.)
-* ~~Security.  Gumbo was initially designed for a product that worked with
-  trusted input files only.  We're working to harden this and make sure that it
-  behaves as expected even on malicious input, but for now, Gumbo should only be
-  run on trusted input or within a sandbox.~~ Gumbo underwent a number of
-  security fixes and passed Google's security review as of version 0.9.1.
 
 Wishlist (aka "We couldn't get these into the original release, but are
 hoping to add them soon"):
@@ -211,6 +203,7 @@ various contributors in other repositories:
 [gumbo-libxml]: https://github.com/nostrademons/gumbo-libxml
 
 [HTML5 parsing algorithm]: http://www.whatwg.org/specs/web-apps/current-work/multipage/#auto-toc-12
+[original GitHub repository]: https://github.com/google/gumbo-parser
 [HTML5 spec]: http://www.whatwg.org/specs/web-apps/current-work/multipage/
 [html5lib tests]: https://github.com/html5lib/html5lib-tests
 [googletest]: https://code.google.com/p/googletest/
